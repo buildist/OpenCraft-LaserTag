@@ -250,7 +250,7 @@ public class ActionSender {
     sendExtSpawn(
         (byte) player.getId(),
         player.getColoredName(),
-        player.getName(),
+        player.getSkinUrl() != null ? player.getSkinUrl() : player.getName(),
         player.getPosition().getX(),
         player.getPosition().getY(),
         player.getPosition().getZ(),
