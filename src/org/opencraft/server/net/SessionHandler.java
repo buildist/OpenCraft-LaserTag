@@ -46,6 +46,8 @@ import org.opencraft.server.task.impl.SessionClosedTask;
 import org.opencraft.server.task.impl.SessionMessageTask;
 import org.opencraft.server.task.impl.SessionOpenedTask;
 
+import org.opencraft.server.net.websocket.WebSocketFilter;
+
 /**
  * An implementation of an <code>IoHandler</code> which manages incoming events from MINA and passes
  * them onto the necessary subsystem in the OpenCraft server.
@@ -77,6 +79,8 @@ public final class SessionHandler extends IoHandlerAdapter {
             "protocol",
             new ProtocolCodecFilter(
                 new MinecraftCodecFactory(PersistingPacketManager.getPacketManager())));
+      session.getFilterChain()
+          .addFirst("websocket", new WebSocketFilter());
     TaskQueue.getTaskQueue().push(new SessionOpenedTask(session));
   }
 }
